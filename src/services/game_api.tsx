@@ -10,9 +10,9 @@ const mock_games: Game[] = [
     "description": "Embark on a thrilling adventure with the sweetest rush in town!",
     "is_starred": false,
     "providers": [
-      "gameart",
-      "gamesglobal",
-      "habanero"
+      "EM",
+      "EVO",
+      "HAB"
     ]
   },
   {
@@ -22,7 +22,7 @@ const mock_games: Game[] = [
     "description": "Join the elite group of martial artists as they take on their most epic battles yet!",
     "is_starred": true,
     "providers": [
-      "gameart", 
+      "HAB",
     ]
   },
   {
@@ -32,7 +32,7 @@ const mock_games: Game[] = [
     "description": "Don't let the cute face fool you, for beneath lies a wolf of steel and cunning.",
     "is_starred": false,
     "providers": [
-      "gameart", "habanero"
+      "EM", "HAB"
     ]
   },
   {
@@ -42,7 +42,7 @@ const mock_games: Game[] = [
     "description": "Unlock the secrets of ancient Egypt with this mystical book that holds the keys to unimaginable power!",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   },
   {
@@ -52,7 +52,7 @@ const mock_games: Game[] = [
     "description": "Set sail on the high seas with these swashbuckling pirates as they seek to conquer all in their path!",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   },
   {
@@ -62,7 +62,7 @@ const mock_games: Game[] = [
     "description": "Buckle up for a wild ride as you join this fearless crocodile on its most extreme adventures yet!",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   },
   {
@@ -72,7 +72,7 @@ const mock_games: Game[] = [
     "description": "Witness the might of the anaconda in all its glory as it unleashes its fury upon the jungle, and claim your share of the jackpot!",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   },
   {
@@ -82,7 +82,7 @@ const mock_games: Game[] = [
     "description": "Step into the world of ancient Mayan civilization where myth and magic come alive to guide you towards fortune!",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   },
   {
@@ -92,7 +92,7 @@ const mock_games: Game[] = [
     "description": "Escape to a tranquil paradise where the rhythm of the waves and the warmth of the sun will transport you to an idyllic life by the beach!",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   },
   {
@@ -102,7 +102,7 @@ const mock_games: Game[] = [
     "description": "Explore the mystical realms of ancient Peru as you search for hidden treasures within the ruins of this enigmatic civilization.",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   },
   {
@@ -112,7 +112,7 @@ const mock_games: Game[] = [
     "description": "Step into the opulent world of Persia where royalty and nobility vie for dominance in a game of power, wealth, and intrigue!",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   },
   {
@@ -122,19 +122,24 @@ const mock_games: Game[] = [
     "description": "Journey through the heart of Mexico as you unlock the secrets of the ancient Aztecs and claim your reward in this thrilling jackpot adventure!",
     "is_starred": false,
     "providers": [
-      "gameart"
+      "EM"
     ]
   }
 ]
 
-export async function searchGames(gameName?: string): Promise<Game[]> {
+export async function searchGames(gameName?: string, providers?: string[]): Promise<Game[]> {
   try {
-    let filtered = []
-    if (gameName) {
-      filtered = mock_games.filter((game: Game) => game.name.toLowerCase().includes(gameName.toLowerCase()));
+    let filtered: Game[] = mock_games
+    if (providers && providers.length > 0) {
+      filtered
+        = mock_games.filter((game: Game) => game.providers.some((provider: string) => providers.includes(provider)));
     }
-    else {
-      filtered = mock_games
+    if (gameName) {
+      if (filtered && filtered.length > 0) {
+        filtered = filtered.filter((game: Game) => game.name.toLowerCase().includes(gameName.toLowerCase()));
+      } else {
+        filtered = mock_games.filter((game: Game) => game.name.toLowerCase().includes(gameName.toLowerCase()));
+      }
     }
 
     const service = new FavoritesService()
@@ -166,121 +171,114 @@ export async function removeFavorite(game: Game): Promise<void> {
   service.deleteFavorite(`${game.id}`)
 }
 
-
-const mock_providers: Provider[] = [
-  {
-    "id": "gameart",
-    "name": "GameArt",
-    "img": "/mayo/assets/provider/GAMEART.webp.png",
-    "count": 117
-
-  },
-  {
-    "id": "gamesglobal",
-    "name": "Games Global",
-    "img": "/mayo/assets/provider/GG.webp.png",
-    "count": 8
-
-  },
-  {
-    "id": "habanero",
-    "name": "Habanero",
-    "img": "/mayo/assets/provider/HAB.webp.png",
-    "count": 206
-
-  }
-]
-
 const mock_game_providers: GameProvider[] = [
   {
     'id': 'EM',
     'name': 'EM',
-    'img': '/mayo/assets/gameprovider/EM.png',
+    'img': '/mayo/assets/gameproviders/EM.png',
+    'count': 842,
   },
   {
     'id': 'EVO',
     'name': 'EVO',
-    'img': '/mayo/assets/gameprovider/EVO.png',
+    'img': '/mayo/assets/gameproviders/EVO.png',
+    'count': 118,
   },
   {
     'id': 'EXPANSE',
     'name': 'EXPANSE',
-    'img': '/mayo/assets/gameprovider/EXPANSE.png',
+    'img': '/mayo/assets/gameproviders/EXPANSE.png',
+    'count': 421,
   },
   {
     'id': 'EZG',
     'name': 'EZG',
-    'img': '/mayo/assets/gameprovider/EZG.png',
+    'img': '/mayo/assets/gameproviders/EZG.png',
+    'count': 913,
   },
   {
     'id': 'GAMEART',
     'name': 'GAMEART',
-    'img': '/mayo/assets/gameprovider/GAMEART.png',
+    'img': '/mayo/assets/gameproviders/GAMEART.png',
+    'count': 63,
   },
   {
     'id': 'HAB',
     'name': 'HAB',
-    'img': '/mayo/assets/gameprovider/HAB.png',
+    'img': '/mayo/assets/gameproviders/HAB.png',
+    'count': 982,
   },
   {
     'id': 'HACKSAW',
     'name': 'HACKSAW',
-    'img': '/mayo/assets/gameprovider/HACKSAW.png',
+    'img': '/mayo/assets/gameproviders/HACKSAW.png',
+    'count': 219,
   },
   {
     'id': 'INBET',
     'name': 'INBET',
-    'img': '/mayo/assets/gameprovider/INBET.png',
+    'img': '/mayo/assets/gameproviders/INBET.png',
+    'count': 811,
   },
   {
     'id': 'MPLAY',
     'name': 'MPLAY',
-    'img': '/mayo/assets/gameprovider/MPLAY.png',
+    'img': '/mayo/assets/gameproviders/MPLAY.png',
+    'count': 361,
   },
   {
     'id': 'NETENT',
     'name': 'NETENT',
-    'img': '/mayo/assets/gameprovider/NETENT.png',
+    'img': '/mayo/assets/gameproviders/NETENT.png',
+    'count': 940,
   },
   {
     'id': 'PGSOFT',
     'name': 'PGSOFT',
-    'img': '/mayo/assets/gameprovider/PGSOFT.png',
+    'img': '/mayo/assets/gameproviders/PGSOFT.png',
+    'count': 278,
   },
   {
     'id': 'PNG',
     'name': 'PNG',
-    'img': '/mayo/assets/gameprovider/PNG.png',
+    'img': '/mayo/assets/gameproviders/PNG.png',
+    'count': 193,
   },
   {
     'id': 'PP',
     'name': 'PP',
-    'img': '/mayo/assets/gameprovider/PP.png',
+    'img': '/mayo/assets/gameproviders/PP.png',
+    'count': 823,
   },
   {
     'id': 'PRAGMATICPLAY',
     'name': 'PRAGMATICPLAY',
-    'img': '/mayo/assets/gameprovider/PRAGMATICPLAY.png',
+    'img': '/mayo/assets/gameproviders/PRAGMATICPLAY.png',
+    'count': 649,
   },
   {
     'id': 'PS',
     'name': 'PS',
-    'img': '/mayo/assets/gameprovider/PS.png',
+    'img': '/mayo/assets/gameproviders/PS.png',
+    'count': 127,
   },
   {
     'id': 'PT',
     'name': 'PT',
-    'img': '/mayo/assets/gameprovider/PT.png',
+    'img': '/mayo/assets/gameproviders/PT.png',
+    'count': 819,
   },
   {
     'id': 'REDTIGER',
     'name': 'REDTIGER',
-    'img': '/mayo/assets/gameprovider/REDTIGER.png',
+    'img': '/mayo/assets/gameproviders/REDTIGER.png',
+    'count': 527,
   },
   {
     'id': 'RELAX',
     'name': 'RELAX',
-    'img': '/mayo/assets/gameprovider/RELAX.png',
+    'img': '/mayo/assets/gameproviders/RELAX.png',
+    'count': 394,
   },
 ]
 
@@ -304,8 +302,8 @@ export async function searchProvider(provider?: string): Promise<GameProvider[]>
 
 export async function getProvidersByIds(ids?: string[]): Promise<Provider[]> {
   try {
-    
-    const filtered = mock_providers.filter((game: Provider) => ids?.includes(game.id));
+
+    const filtered = mock_game_providers.filter((game: GameProvider) => ids?.includes(game.id));
 
     return Promise.resolve(filtered);
 

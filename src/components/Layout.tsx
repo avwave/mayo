@@ -8,10 +8,11 @@ import SearchBarComponent from './Search';
 import Footer from './Footer';
 import { GameContext } from './state/GameContext';
 import GameInfo from './GameInfo';
+import SearchProviderDrawer from './SearchProviderDrawer';
 
 const Layout: React.FC = () => {
   const [activeTab, setActiveTab] = useState(-1);
-
+  
   const { searchTerm, setSearchTerm, activeGame } = useContext(GameContext)
 
   return (
@@ -41,6 +42,7 @@ const Layout: React.FC = () => {
           console.log('onFooterTabChange', tab);
         }}
       />
+      
     </div>
   );
 };
