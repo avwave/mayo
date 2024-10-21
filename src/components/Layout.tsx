@@ -1,18 +1,17 @@
 import React, { useContext, useState } from 'react';
+import Footer from './Footer';
+import GameInfo from './GameInfo';
 import GameList from './GameList';
 import Header from './Header';
-import UserCard from './UserCard';
+import SearchBarComponent from './Search';
+import { GameContext } from './state/GameContext';
 import SubHeader from './SubHeader';
 import Toolbar from './Toolbar';
-import SearchBarComponent from './Search';
-import Footer from './Footer';
-import { GameContext } from './state/GameContext';
-import GameInfo from './GameInfo';
-import SearchProviderDrawer from './SearchProviderDrawer';
+import UserCard from './UserCard';
 
 const Layout: React.FC = () => {
   const [activeTab, setActiveTab] = useState(-1);
-  
+
   const { searchTerm, setSearchTerm, activeGame } = useContext(GameContext)
 
   return (
@@ -42,7 +41,7 @@ const Layout: React.FC = () => {
           console.log('onFooterTabChange', tab);
         }}
       />
-      
+
     </div>
   );
 };

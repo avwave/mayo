@@ -1,4 +1,4 @@
-import { Game, GameProvider, Provider } from "../models/Game";
+import { Game, GameProvider } from "../models/Game";
 import { FavoritesService } from "./localFavorites";
 
 
@@ -300,7 +300,7 @@ export async function searchProvider(provider?: string): Promise<GameProvider[]>
   }
 }
 
-export async function getProvidersByIds(ids?: string[]): Promise<Provider[]> {
+export async function getProvidersByIds(ids?: string[]): Promise<GameProvider[]> {
   try {
 
     const filtered = mock_game_providers.filter((game: GameProvider) => ids?.includes(game.id));

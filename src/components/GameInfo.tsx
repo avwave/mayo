@@ -1,9 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { Game, Provider } from "../models/Game";
-import GameIcon from "./GameIcon";
-import { GameContext } from "./state/GameContext";
+import { Game, GameProvider } from "../models/Game";
 import { getProvidersByIds } from "../services/game_api";
+import GameIcon from "./GameIcon";
 import ProviderCard from "./ProviderCard";
+import { GameContext } from "./state/GameContext";
 
 interface GameIconProps {
   game: Game;
@@ -12,7 +12,7 @@ interface GameIconProps {
 const GameInfo: React.FC<GameIconProps> = ({ game }) => {
   const { setActiveGame, activeGame } = useContext(GameContext);
 
-  const [providers, setProviders] = useState<Provider[]>([]);
+  const [providers, setProviders] = useState<GameProvider[]>([]);
 
 
   const fetchProvidersForGame = useCallback(
@@ -45,7 +45,7 @@ const GameInfo: React.FC<GameIconProps> = ({ game }) => {
       <div className="grid grid-flow-row grid-cols-3 gap-2">
         {providers.map(provider => (
           <ProviderCard key={provider.id} provider={provider} />
-         ))}
+        ))}
       </div>
     </div>
   );

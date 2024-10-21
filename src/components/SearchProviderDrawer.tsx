@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { GameContext } from './state/GameContext';
-import { GameProvider, Provider } from '../models/Game';
+import { GameProvider } from '../models/Game';
 import { searchProvider } from '../services/game_api';
 
 interface Props {
@@ -25,7 +25,7 @@ const SearchProviderDrawer: React.FC<Props> = ({ isOpen, setIsOpen }) => {
         setProviders(allProviders)
 
       } catch (error) {
-
+        console.log('Error', error)
       } finally {
         setLoading(false);
       }
@@ -49,7 +49,7 @@ const SearchProviderDrawer: React.FC<Props> = ({ isOpen, setIsOpen }) => {
       }
       
       return null
-    }, []
+    }, [filterProviders, setFilterProviders]
   );
   if (loading) {
     return <div>Loading...</div>;
