@@ -1,8 +1,8 @@
+import Layout from './components/Layout'
 import './index.css'
-import GameList from './components/GameList'
 
 function App() {
-  return <GameList/>
+  return <Layout/>
 }
 
 export default App
