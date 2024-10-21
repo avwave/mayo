@@ -1,4 +1,5 @@
 import { Game } from "../models/Game";
+import { FavoritesService } from "./localFavorites";
 
 
 const mock_games: Game[] = [
@@ -128,15 +129,39 @@ const mock_games: Game[] = [
 
 export async function searchGames(gameName?: string): Promise<Game[]> {
   try {
+    let filtered = []
     if (gameName) {
-      const filtered = mock_games.filter((game: Game) => game.name.toLowerCase().includes(gameName.toLowerCase()));
-      return filtered
+      filtered = mock_games.filter((game: Game) => game.name.toLowerCase().includes(gameName.toLowerCase()));
     }
     else {
-      return mock_games;
+      filtered = mock_games
     }
+
+    const service = new FavoritesService()
+
+
+    const mappedForFavorites = filtered.map((game:Game) => {
+      const hasFavorite = service.hasFavorite(`${game.id}`)
+      return {
+        ...game,
+        is_starred: hasFavorite
+      }
+    })
+
+    return mappedForFavorites
+
   } catch (error) {
     console.log('Error', error);
     return []
   } 
+}
+
+export async function saveFavorite(game: Game): Promise<void> {
+  const service = new FavoritesService()
+  service.createFavorite(`${game.id}`)
+}
+
+export async function removeFavorite(game: Game): Promise<void> {
+  const service = new FavoritesService()
+  service.deleteFavorite(`${game.id}`)
 }

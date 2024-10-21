@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import GameList from './GameList';
 import Header from './Header';
 import UserCard from './UserCard';
@@ -6,10 +6,13 @@ import SubHeader from './SubHeader';
 import Toolbar from './Toolbar';
 import SearchBarComponent from './Search';
 import Footer from './Footer';
+import { GameContext } from './state/GameContext';
 
 const Layout: React.FC = () => {
-  const [filterValue, setFilterValue] = useState('');
   const [activeTab, setActiveTab] = useState(-1);
+
+  const {searchTerm, setSearchTerm} = useContext(GameContext)
+
   return (
     <div>
       <Header />
@@ -24,10 +27,10 @@ const Layout: React.FC = () => {
 
         {activeTab === 0 && (
           <SearchBarComponent
-            onSearchChange={setFilterValue}
-            searchValue={filterValue} />
+            onSearchChange={setSearchTerm}
+            searchValue={searchTerm} />
         )}
-        <GameList filterValue={filterValue} />
+        <GameList/>
       </main>
       <Footer
         onTabChange={(tab)=>{
