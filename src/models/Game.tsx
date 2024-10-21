@@ -7,3 +7,15 @@ export interface Game {
   providers: string[];
 }
 
+export interface Provider {
+  id: string;
+  name: string;
+  img?: string;
+  count: number;
+}
+
+export interface GameProvider {
+  id: string;
+  name: string;
+  img?: string;
+}

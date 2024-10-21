@@ -7,12 +7,10 @@ const imgPlaceholder3 = '/mayo/assets/profile_image 40.png'
 const UserCard = () => {
 
   const images = [imgPlaceholder, imgPlaceholder2, imgPlaceholder3]
-
-  const [scrolling, setScrolling] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 
-  const refs = images.reduce((acc: { [key: number]: React.RefObject<HTMLElement> }, val, i) => {
+  const refs = images.reduce((acc: { [key: number]: React.RefObject<HTMLDivElement> }, _val, i) => {
     acc[i] = createRef();
     return acc;
   }, {} as { [key: number]: React.RefObject<HTMLDivElement> });

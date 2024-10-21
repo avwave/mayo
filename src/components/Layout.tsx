@@ -7,16 +7,17 @@ import Toolbar from './Toolbar';
 import SearchBarComponent from './Search';
 import Footer from './Footer';
 import { GameContext } from './state/GameContext';
+import GameInfo from './GameInfo';
 
 const Layout: React.FC = () => {
   const [activeTab, setActiveTab] = useState(-1);
 
-  const {searchTerm, setSearchTerm} = useContext(GameContext)
+  const { searchTerm, setSearchTerm, activeGame } = useContext(GameContext)
 
   return (
     <div>
       <Header />
-      <main className="relative p-[15px]">
+      <main className="relative p-[15px] mb-[60px]">
         <UserCard />
 
         <SubHeader username='artxxxipa' />
@@ -30,10 +31,13 @@ const Layout: React.FC = () => {
             onSearchChange={setSearchTerm}
             searchValue={searchTerm} />
         )}
-        <GameList/>
+        {activeGame ?
+          <GameInfo game={activeGame} />
+          : <GameList />}
+
       </main>
       <Footer
-        onTabChange={(tab)=>{
+        onTabChange={(tab) => {
           console.log('onFooterTabChange', tab);
         }}
       />

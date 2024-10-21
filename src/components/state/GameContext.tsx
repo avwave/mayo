@@ -7,11 +7,16 @@ export const GameContext = createContext<{
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>,
   games: Game[] | null, // Adding 'null' to denote that it can be null as well
   reload: () => void;
-}>({ searchTerm: '', setSearchTerm: () => { }, games: [], reload: () => { } });
+  activeGame: Game | null,
+  setActiveGame: React.Dispatch<React.SetStateAction<Game | null>>,
+
+}>({ searchTerm: '', setSearchTerm: () => { }, games: [], reload: () => { }, activeGame: null, setActiveGame: () => { } });
 
 
 export const GameContextProvider = ({ children }: { children: ReactNode }) => {
   const [games, setGames] = useState<Game[]>([]);
+
+  const [activeGame, setActiveGame] = useState<Game | null>(null);
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -21,6 +26,7 @@ export const GameContextProvider = ({ children }: { children: ReactNode }) => {
         try {
           const results = await searchGames()
           setGames(results)
+          setActiveGame(null)
         } catch (error) {
           console.error(error)
           setGames([])
@@ -31,11 +37,32 @@ export const GameContextProvider = ({ children }: { children: ReactNode }) => {
   );
 
 
+  const doSearchGames = useCallback(
+    async (term: string) => {
+      try {
+        const results = await searchGames(term)
+        setGames(results)
+        setActiveGame(null)
+      } catch (error) {
+        console.error(error)
+        setGames([])
+      }
+    }, [setGames,]
+  );
+
+  useEffect(
+    () => {
+      doSearchGames(searchTerm)
+    }, [searchTerm, doSearchGames]
+  );
+
+
   const reload = useCallback(
     async () => {
       try {
         const results = await searchGames(searchTerm)
         setGames(results)
+        setActiveGame(null)
       } catch (error) {
         console.error(error)
         setGames([])
@@ -47,7 +74,9 @@ export const GameContextProvider = ({ children }: { children: ReactNode }) => {
     searchTerm,
     setSearchTerm,
     games,
-    reload
+    reload,
+    activeGame,
+    setActiveGame
   }}>
     {children}
   </GameContext.Provider>

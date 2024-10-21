@@ -9,16 +9,19 @@ interface Props {
 }
 
 const GameIcon: React.FC<Props> = ({ game }) => {
-  
-  const { reload } = useContext(GameContext)
+
+  const { reload, setActiveGame } = useContext(GameContext)
   return (
-    <div className="game-container 
-    grid-cols-1 
-    relative 
-    [clipPath:content-box]
-    max-w-[100px]
-    aspect-square
-    ">
+    <div
+      className="game-container 
+      grid-cols-1 
+      relative 
+      [clipPath:content-box]
+      max-w-[100px]
+      aspect-square
+      "
+      onClick={() => setActiveGame(game)}
+    >
       <div
         className=" absolute 
       bg-black 
@@ -30,7 +33,7 @@ const GameIcon: React.FC<Props> = ({ game }) => {
       "
       />
       <button className='absolute right-[3px] top-[3px]'
-        onClick={async() => {
+        onClick={async () => {
           if (game.is_starred) {
             await removeFavorite(game);
           } else {
@@ -70,7 +73,7 @@ const GameIcon: React.FC<Props> = ({ game }) => {
 
         )}
       </button>
-      <img src={`./${game.img}`} alt={game.name} />
+      <img src={`${game.img}`} alt={game.name} />
     </div>
   );
 };

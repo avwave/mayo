@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, useEffect, useState } from "react";
+import { Fragment, ReactElement, useState } from "react";
 
 type Props = {
   onTabChange: (tabIndex: number) => void; // Placeholder for onTabChange prop function
@@ -161,7 +161,7 @@ const Toolbar: React.FC<Props> = ({ onTabChange }) => {
   return (
     <div className="toolbar-container w-full flex flex-row justify-between">
       {
-        ButtonConfigs.map(({ icon, iconActive, label, tabId, onClick }, index) => (
+        ButtonConfigs.map(({ icon, iconActive, label, tabId }, index) => (
           <Fragment key={index}>
             <button
               key={tabId}
@@ -182,7 +182,7 @@ const Toolbar: React.FC<Props> = ({ onTabChange }) => {
             </button>
 
             {/* add vertical divider for first tab */}
-            {index === 0 && 
+            {index === 0 &&
               <div className="ml-2 w-[1px] min-h-[1em]"
                 style={{
                   backgroundImage: "linear-gradient(0deg, rgba(2,0,36,0) 0%, rgba(136,136,136,1) 30%, rgba(136,136,136,1) 70%, rgba(0,212,255,0) 100%)",

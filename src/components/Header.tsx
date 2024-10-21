@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { localizeCurrency } from '../utils/format';
 const logo = '/mayo/assets/F1M5_Logo.svg'
 

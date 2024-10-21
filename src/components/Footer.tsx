@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, useEffect, useState } from "react";
+import { Fragment, ReactElement, useState } from "react";
 
 type Props = {
   onTabChange: (tabIndex: number) => void; // Placeholder for onTabChange prop function
@@ -98,7 +98,7 @@ const Footer: React.FC<Props> = ({ onTabChange }) => {
   return (
     <div className="bg-white py-2 fixed z-20 bottom-0 start-0 footer-container w-full flex flex-row justify-between">
       {
-        ButtonConfigs.map(({ icon, iconActive, label, tabId, onClick }, index) => (
+        ButtonConfigs.map(({ icon, iconActive, label, tabId }, index) => (
           <Fragment key={index}>
             <button
               key={tabId}
