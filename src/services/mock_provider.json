@@ -1,0 +1,26 @@
+[
+  {
+    "provider": {
+      "id": "gameart",
+      "name": "GameArt",
+      "img": "/assets/provider/GAMEART.webp.png",
+      "count": 117
+    }
+  },
+  {
+    "provider": {
+      "id": "gamesglobal",
+      "name": "Games Global",
+      "img": "/assets/provider/GG.webp.png",
+      "count": 8
+    }
+  },
+  {
+    "provider": {
+      "id": "habanero",
+      "name": "Habanero",
+      "img": "/assets/provider/HAB.webp.png",
+      "count": 206
+    }
+  }
+]
