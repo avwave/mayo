@@ -5,6 +5,7 @@ import UserCard from './UserCard';
 import SubHeader from './SubHeader';
 import Toolbar from './Toolbar';
 import SearchBarComponent from './Search';
+import Footer from './Footer';
 
 const Layout: React.FC = () => {
   const [filterValue, setFilterValue] = useState('');
@@ -26,9 +27,13 @@ const Layout: React.FC = () => {
             onSearchChange={setFilterValue}
             searchValue={filterValue} />
         )}
-        {/* <GameList filterValue={filterValue} /> */}
-        {/* <GameList filterValue={filterValue}></GameList> */}
+        <GameList filterValue={filterValue} />
       </main>
+      <Footer
+        onTabChange={(tab)=>{
+          console.log('onFooterTabChange', tab);
+        }}
+      />
     </div>
   );
 };

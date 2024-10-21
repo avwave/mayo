@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import logo from '../assets/F1M5_Logo.svg'
 import { localizeCurrency } from '../utils/format';
+const logo = '/mayo/assets/F1M5_Logo.svg'
 
 const HamburgerMenu = () => {
   const [openMenu, setOpenMenu] = useState(false);

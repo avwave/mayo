@@ -1,8 +1,8 @@
 import React, { createRef, useCallback, useEffect, useState } from 'react';
 
-import imgPlaceholder from '../assets/Frame 18.png'
-import imgPlaceholder2 from '../assets/png.png'
-import imgPlaceholder3 from '../assets/profile_image 40.png'
+const imgPlaceholder = '/mayo/assets/Frame 18.png'
+const imgPlaceholder2 = '/mayo/assets/png.png'
+const imgPlaceholder3 = '/mayo/assets/profile_image 40.png'
 
 const UserCard = () => {
 
